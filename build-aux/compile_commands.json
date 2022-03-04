@@ -1,0 +1,164 @@
+[
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson --internal msgfmthelper ../data/org.novelest.Novelest.desktop.in data/org.novelest.Novelest.desktop desktop ../data/../po",
+    "file": "../data/org.novelest.Novelest.desktop.in",
+    "output": "data/org.novelest.Novelest.desktop"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson --internal msgfmthelper ../data/org.novelest.Novelest.appdata.xml.in data/org.novelest.Novelest.appdata.xml xml ../data/../po",
+    "file": "../data/org.novelest.Novelest.appdata.xml.in",
+    "output": "data/org.novelest.Novelest.appdata.xml"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/glib-compile-resources ../src/org.novelest.Novelest.src.gresource.xml --sourcedir ../src --internal --generate --target src/org.novelest.Novelest.src.gresource --dependency-file src/org.novelest.Novelest.src.gresource.d",
+    "file": "../src/org.novelest.Novelest.src.gresource.xml",
+    "output": "src/org.novelest.Novelest.src.gresource"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/glib-compile-resources ../src/org.novelest.Novelest.data.gresource.xml --sourcedir ../src --internal --generate --target src/org.novelest.Novelest.data.gresource --dependency-file src/org.novelest.Novelest.data.gresource.d",
+    "file": "../src/org.novelest.Novelest.data.gresource.xml",
+    "output": "src/org.novelest.Novelest.data.gresource"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-novelest-pot",
+    "output": "novelest-pot"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-novelest-update-po",
+    "output": "novelest-update-po"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson test --no-rebuild --print-errorlogs",
+    "file": "all",
+    "output": "meson-test"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-test",
+    "output": "test"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson test --benchmark --logbase benchmarklog --num-processes=1 --no-rebuild",
+    "file": "all",
+    "output": "meson-benchmark"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-benchmark",
+    "output": "benchmark"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson install --no-rebuild",
+    "file": "PHONY",
+    "output": "meson-install"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-install",
+    "output": "install"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson dist",
+    "file": "PHONY",
+    "output": "meson-dist"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-dist",
+    "output": "dist"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson --internal scanbuild /home/jechasteen/Projects/Novelest /home/jechasteen/Projects/Novelest/build-aux /usr/bin/meson",
+    "file": "PHONY",
+    "output": "meson-scan-build"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-scan-build",
+    "output": "scan-build"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson --internal tags ctags /home/jechasteen/Projects/Novelest",
+    "file": "PHONY",
+    "output": "meson-ctags"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-ctags",
+    "output": "ctags"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson --internal uninstall",
+    "file": "PHONY",
+    "output": "meson-uninstall"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-uninstall",
+    "output": "uninstall"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "data/org.novelest.Novelest.desktop",
+    "output": "all"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-clean",
+    "output": "clean"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson --internal cleantrees /home/jechasteen/Projects/Novelest/build-aux/meson-private/cleantrees.dat",
+    "file": "PHONY",
+    "output": "meson-clean-ctlist"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "",
+    "file": "meson-clean-ctlist",
+    "output": "clean-ctlist"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/ninja -t clean",
+    "file": "PHONY",
+    "output": "meson-clean"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson --internal regenerate /home/jechasteen/Projects/Novelest /home/jechasteen/Projects/Novelest/build-aux --backend ninja",
+    "file": "../meson.build",
+    "output": "build.ninja"
+  },
+  {
+    "directory": "/home/jechasteen/Projects/Novelest/build-aux",
+    "command": "/usr/bin/meson --internal regenerate /home/jechasteen/Projects/Novelest /home/jechasteen/Projects/Novelest/build-aux --backend ninja",
+    "file": "PHONY",
+    "output": "reconfigure"
+  }
+]

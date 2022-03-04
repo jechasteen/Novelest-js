@@ -1,0 +1,7 @@
+data/org.novelest.Novelest.desktop.in
+data/org.novelest.Novelest.appdata.xml.in
+data/org.novelest.Novelest.gschema.xml
+src/window.ui
+src/main.js
+src/window.js
+

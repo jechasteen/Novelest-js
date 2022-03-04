@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=novelest
+Exec=org.novelest.Novelest
+Icon=org.novelest.Novelest
+Terminal=false
+Type=Application
+Categories=GTK;
+StartupNotify=true

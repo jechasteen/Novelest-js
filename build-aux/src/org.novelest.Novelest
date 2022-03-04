@@ -1,0 +1,9 @@
+#!/usr/bin/gjs
+imports.package.init({
+  name: "novelest",
+  version: "0.1.0",
+  prefix: "/usr/local",
+  libdir: "/usr/local/lib",
+  datadir: "/usr/local/share",
+});
+imports.package.run(imports.main);

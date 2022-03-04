@@ -1,0 +1,56 @@
+Build started at 2022-03-03T10:55:06.072069
+Main binary: /usr/bin/python
+Build Options: 
+Python system: Linux
+The Meson build system
+Version: 0.61.2
+Source dir: /home/jechasteen/Projects/Novelest
+Build dir: /home/jechasteen/Projects/Novelest/build-aux
+Build type: native build
+Project name: novelest
+Project version: 0.1.0
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Target machine cpu family: x86_64
+Target machine cpu: x86_64
+Program desktop-file-validate found: YES (/usr/bin/desktop-file-validate)
+Adding test "Validate desktop file"
+Program appstream-util found: YES (/usr/bin/appstream-util)
+Adding test "Validate appstream file"
+Program glib-compile-schemas found: YES (/usr/bin/glib-compile-schemas)
+Adding test "Validate schema file"
+Pkg-config binary for 0 is not cached.
+Pkg-config binary missing from cross or native file, or env var undefined.
+Trying a default Pkg-config fallback at pkg-config
+Found pkg-config: /usr/bin/pkg-config (1.8.0)
+Determining dependency 'glib-2.0' with pkg-config executable '/usr/bin/pkg-config'
+env[PKG_CONFIG_PATH]: 
+Called `/usr/bin/pkg-config --modversion glib-2.0` -> 0
+2.70.4
+env[PKG_CONFIG_PATH]: 
+Called `/usr/bin/pkg-config --cflags glib-2.0` -> 0
+-I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sysprof-4 -pthread
+env[PKG_CONFIG_ALLOW_SYSTEM_LIBS]: 1
+env[PKG_CONFIG_PATH]: 
+Called `/usr/bin/pkg-config --libs glib-2.0` -> 0
+-L/usr/lib -lglib-2.0
+env[PKG_CONFIG_PATH]: 
+Called `/usr/bin/pkg-config --libs glib-2.0` -> 0
+-lglib-2.0
+Program glib-compile-resources found: YES (/usr/bin/glib-compile-resources)
+Program glib-compile-resources found: YES (/usr/bin/glib-compile-resources)
+Program gjs found: YES (/usr/bin/gjs)
+Configuring org.novelest.Novelest using configuration
+Build targets in project: 7
+NOTICE: Future-deprecated features used:
+ * 0.55.0: {'ExternalProgram.path'}
+
+Found ninja-1.10.2 at /usr/bin/ninja
+Failed to guess install tag for /usr/local/share/glib-2.0/schemas/org.novelest.Novelest.gschema.xml
+Failed to guess install tag for /usr/local/share/icons/hicolor/scalable/apps/org.novelest.Novelest.svg
+Failed to guess install tag for /usr/local/share/icons/hicolor/symbolic/apps/org.novelest.Novelest-symbolic.svg
+Failed to guess install tag for /usr/local/share/glib-2.0/schemas/org.novelest.Novelest.gschema.xml
+Failed to guess install tag for /usr/local/share/icons/hicolor/scalable/apps/org.novelest.Novelest.svg
+Failed to guess install tag for /usr/local/share/icons/hicolor/symbolic/apps/org.novelest.Novelest-symbolic.svg
