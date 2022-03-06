@@ -32,6 +32,12 @@ const { ShortUniqueId } = imports.uid;
 
 const uid = new ShortUniqueId({ dictionary: "hex" });
 
+const openSaveDirectory = "/home/jechasteen";
+
+function isNovelestFile(filename) {
+    return filename.split(".")[filename.split(".").length - 1] === "novelest";
+}
+
 var NovelestWindow = GObject.registerClass({
     GTypeName: 'NovelestWindow',
     Template: 'resource:///org/novelest/Novelest/window.ui',
@@ -49,7 +55,7 @@ var NovelestWindow = GObject.registerClass({
         this.initUI();
     }
     
-    initOrganizer() {
+    initStore() {
         this.store = Gtk.ListStore.new([String, Boolean, String]);
         const colTitle = new Gtk.TreeViewColumn({
             title: "Title",
@@ -90,10 +96,17 @@ var NovelestWindow = GObject.registerClass({
             cell.active = this.store.get_value(iter, 1);
         });
         
-        this._organizer.set_property("activate-on-single-click", false);
         this._organizer.append_column(colTitle);
         this._organizer.append_column(colInclude);
         this._organizer.set_model(this.store);
+    }
+    
+    initOrganizer() {
+        this._organizer.set_property("activate-on-single-click", false);
+        this._organizer.set_reorderable(true);
+        if (typeof(this.store) === "undefined") {
+            this.initStore();
+        }
         
         let counter = 1;
         this._btnNewChapter.connect(
@@ -145,11 +158,15 @@ var NovelestWindow = GObject.registerClass({
                     }
                     const newText = this.data.chapters[this.store.get_value(iter, 2)].body || "";
                     this._editor.get_buffer().set_text(newText, newText.length);
-                    this.data.chapters[this.store.get_value(previous, 2)].body = oldText || "";
+                    const id = this.store.get_value(previous, 2);
+                    this.data.chapters[id].title = this.store.get_value(previous, 0);
+                    this.data.chapters[id].body = oldText || "";
+                    this.data.chapters[id].included = this.store.get_value(previous, 1);
+                    
                 }
                 previous = selection.get_selected()[2];
                 this.updateWordCountProgress();
-                this.save();
+                // this.save();
             }
         );
     }
@@ -164,9 +181,75 @@ var NovelestWindow = GObject.registerClass({
     }
     
     save() {
+        log("Saving.");
+        this.data.order = [];
+        let [,iter] = this.store.get_iter_first();
+        this.store.foreach((model, path, iter) => {
+            this.data.order.push(this.store.get_value(iter, 2));
+        });
+        
+        const selected = this._organizer.get_selection().get_selected()[2];
+        const bounds = this._editor.get_buffer().get_bounds();
+        const id = this.store.get_value(selected, 2);
+        this.data.chapters[id].body = this._editor.get_buffer().get_text(bounds[0], bounds[1], true);
+        
         const file = Gio.File.new_for_path(this.data.filename);
         file.replace_contents(JSON.stringify(this.data), null, false,
             Gio.FileCreateFlags.REPLACE_DESTINATION, null);
+    }
+    
+    open() {
+        const dialog = new Gtk.FileChooserDialog({
+            title: "Choose project save file",
+            filter: this.fileFilter
+        });
+        dialog.set_current_folder(openSaveDirectory);
+        dialog.set_action(Gtk.FileChooserAction.OPEN);
+        dialog.add_button("OK", Gtk.ResponseType.OK);
+        dialog.add_button("Cancel", Gtk.ResponseType.CANCEL);
+        dialog.connect("response", (dialog, response) => {
+            switch(response) {
+            case Gtk.ResponseType.OK:
+                let filename = dialog.get_filename();
+                if (isNovelestFile(filename)) {
+                    const file = Gio.File.new_for_path(filename);
+                    const [, contents,] = file.load_contents(null);
+                    const decoder = new TextDecoder("utf-8");
+                    const json = decoder.decode(contents);
+                    try {
+                        this.data = JSON.parse(json);
+                        dialog.hide();
+                    } catch(e) {
+                        const message = new Gtk.MessageDialog({
+                            title: "Error Reading File",
+                            secondary_text: e.toString()
+                        });
+                        dialog.hide();
+                        message.run();
+                        return;
+                    }
+                    this.updateWordCountProgress();
+                    if (typeof(this.store) !== "undefined") {
+                        this.store.clear();
+                    } else {
+                        this.initStore();
+                    }
+                    this.data.order.forEach(id => {
+                        const iter = this.store.append();
+                        const chapter = this.data.chapters[id];
+                        this.store.set(iter, [0, 1, 2], [chapter.title, chapter.include, id]);
+                    });
+                    this._editor.set_sensitive(Object.keys(this.data.chapters).length > 0);
+                }
+                break;
+            case Gtk.ResponseType.CANCEL:
+                dialog.hide();
+                this._startDialog.show();
+                break;
+            }
+            dialog.hide();
+        });
+        dialog.run();
     }
     
     initModals() {
@@ -177,13 +260,14 @@ var NovelestWindow = GObject.registerClass({
                 this._newProjectDialog.run();
                 break;
             case 1:
-                log("open");
+                this._startDialog.hide();
+                this.open();
                 break;
             case 2:
                 this.app.quit();
                 break;
             }
-            this._startDialog.close();
+            this._startDialog.hide();
         });
         
         this._newProjectInputTarget.connect("insert-text", (widget, text) => {            
@@ -212,7 +296,7 @@ var NovelestWindow = GObject.registerClass({
                     title: "Choose project save file",
                     filter: this.fileFilter
                 });
-                dialog.set_current_folder("/home/jechasteen");
+                dialog.set_current_folder(openSaveDirectory);
                 dialog.set_action(Gtk.FileChooserAction.SAVE);
                 dialog.add_button("OK", Gtk.ResponseType.OK);
                 dialog.add_button("Cancel", Gtk.ResponseType.CANCEL);
@@ -220,10 +304,9 @@ var NovelestWindow = GObject.registerClass({
                     switch (response) {
                     case Gtk.ResponseType.OK:
                         let filename = dialog.get_filename();
-                        if (filename.split(".")[filename.split(".").length - 1] !== "novelest")
+                        if (!isNovelestFile(filename))
                             filename += ".novelest";
                         this.data.filename = filename;
-                        log(this.data.filename);
                         dialog.hide();
                         this.save();
                         break;
@@ -237,7 +320,8 @@ var NovelestWindow = GObject.registerClass({
                 
                 break;
             case Gtk.ResponseType.CANCEL:
-                log("Cancel");
+                this._newProjectDialog.hide();
+                this._startDialog.show();
                 break;
             }
             this._newProjectDialog.close();
@@ -277,9 +361,9 @@ var NovelestWindow = GObject.registerClass({
         
         this.initModals();
         
+        this.initOrganizer();
         this._startDialog.run();
         
-        this.initOrganizer();
         this.initFileMenu();
         this.present();
     }
